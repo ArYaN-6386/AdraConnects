@@ -1,8 +1,8 @@
 {
-  "name": "clubconnect",
+  "name": "adraconnects",
   "private": true,
   "version": "1.0.0",
-  "description": "College club management & communication - WhatsApp-style cloud web app (React + Supabase)",
+  "description": "AdraConnects (Agile Development Robust Automations) - college club management & communication cloud web app (React + Supabase)",
   "type": "module",
   "scripts": {
     "dev": "vite",

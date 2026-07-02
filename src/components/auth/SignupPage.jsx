@@ -35,9 +35,9 @@ export default function SignupPage() {
           <span className="auth-logo-mark">
             <Icon name="chat" size={26} strokeWidth={2.2} />
           </span>
-          ClubConnect
+          AdraConnects
         </div>
-        <p className="auth-tagline">Join your college clubs</p>
+        <p className="auth-tagline">Agile Development · Robust Automations</p>
         <form onSubmit={handleSubmit}>
           <input
             type="text"

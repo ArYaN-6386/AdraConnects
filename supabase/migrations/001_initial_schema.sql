@@ -1,4 +1,4 @@
--- ClubConnect — consolidated schema reference
+-- AdraConnects — consolidated schema reference
 -- Applied to Supabase project zgwckrpeveoemmwtriee as migrations:
 --   core_schema, functions_and_triggers, rls_policies, realtime_and_storage, harden_function_grants
 

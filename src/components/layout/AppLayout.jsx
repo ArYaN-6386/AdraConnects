@@ -24,7 +24,8 @@ export default function AppLayout() {
             <div className="empty-mark">
               <Icon name="chat" size={56} strokeWidth={1.4} />
             </div>
-            <h2>ClubConnect</h2>
+            <h2>AdraConnects</h2>
+            <p className="empty-tagline">Agile Development · Robust Automations</p>
             <p>
               Direct messages, club chats, announcements,
               <br />

@@ -18,7 +18,7 @@ export default function Sidebar() {
 
   return (
     <div className="sidebar">
-      <div className="sidebar-brand">ClubConnect</div>
+      <div className="sidebar-brand">AdraConnects</div>
       <div className="sidebar-header">
         <Avatar name={profile?.full_name} size={38} />
         <span className="sidebar-me">{profile?.full_name}</span>

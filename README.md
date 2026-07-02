@@ -1,6 +1,6 @@
-# ClubConnect 💬
+# AdraConnects
 
-A WhatsApp-style **college club management & communication** web app — fully cloud-based. Direct messages, club group chats, admin-only announcements, event scheduling with RSVPs, and file/resource sharing, all updating in realtime.
+**A**gile **D**evelopment, **R**obust **A**utomations — a WhatsApp-style **college club management & communication** web app, fully cloud-based. Direct messages, club group chats, admin-only announcements, event scheduling with RSVPs, and file/resource sharing, all updating in realtime.
 
 ## Tech stack
 
@@ -48,5 +48,5 @@ Test accounts already seeded: `alice@test.com`, `bob@test.com`, `carol@test.com`
 
 ## Supabase project
 
-- Project: `clubconnect` (`zgwckrpeveoemmwtriee`), region `ap-south-1` (Mumbai), free tier
+- Project: `clubconnect` (`zgwckrpeveoemmwtriee`), region `ap-south-1` (Mumbai), free tier — the Supabase project keeps its original name; only the app brand is AdraConnects
 - The frontend connects with the publishable API key in `.env` (safe to expose — RLS is the security boundary)

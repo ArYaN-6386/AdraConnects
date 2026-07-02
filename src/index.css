@@ -1,4 +1,4 @@
-/* ClubConnect — field-manual inspired palette: rust red, dark green, cream */
+/* AdraConnects — field-manual inspired palette: rust red, dark green, cream */
 :root {
   --red: #bf3b1b;
   --red-dark: #a33217;
@@ -502,6 +502,15 @@ textarea:focus {
 
 .empty-state p {
   line-height: 1.7;
+}
+
+.empty-tagline {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--red);
+  margin-bottom: 14px;
 }
 
 .empty-hint {

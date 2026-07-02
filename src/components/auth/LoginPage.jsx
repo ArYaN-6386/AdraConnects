@@ -30,9 +30,9 @@ export default function LoginPage() {
           <span className="auth-logo-mark">
             <Icon name="chat" size={26} strokeWidth={2.2} />
           </span>
-          ClubConnect
+          AdraConnects
         </div>
-        <p className="auth-tagline">Your college clubs, one chat away</p>
+        <p className="auth-tagline">Agile Development · Robust Automations</p>
         <form onSubmit={handleSubmit}>
           <input
             type="email"
