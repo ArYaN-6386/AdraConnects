@@ -1,0 +1,49 @@
+import { format, isToday, isYesterday, isThisYear } from 'date-fns'
+
+export function initials(name = '') {
+  return name
+    .split(/\s+/)
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((w) => w[0].toUpperCase())
+    .join('')
+}
+
+// Bubble timestamp: 10:42 pm
+export function formatTime(iso) {
+  return format(new Date(iso), 'h:mm a')
+}
+
+// Sidebar timestamp: time if today, "Yesterday", else date
+export function formatChatTime(iso) {
+  const d = new Date(iso)
+  if (isToday(d)) return format(d, 'h:mm a')
+  if (isYesterday(d)) return 'Yesterday'
+  return format(d, 'dd/MM/yyyy')
+}
+
+// Date separator label
+export function formatDayLabel(iso) {
+  const d = new Date(iso)
+  if (isToday(d)) return 'Today'
+  if (isYesterday(d)) return 'Yesterday'
+  return format(d, isThisYear(d) ? 'd MMMM' : 'd MMMM yyyy')
+}
+
+// Event date: Fri, 4 Jul · 5:30 pm
+export function formatEventTime(iso) {
+  return format(new Date(iso), 'EEE, d MMM · h:mm a')
+}
+
+export function formatFileSize(bytes) {
+  if (bytes == null) return ''
+  if (bytes < 1024) return `${bytes} B`
+  if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`
+  return `${(bytes / (1024 * 1024)).toFixed(1)} MB`
+}
+
+export function sameDay(a, b) {
+  const da = new Date(a)
+  const db = new Date(b)
+  return da.toDateString() === db.toDateString()
+}
