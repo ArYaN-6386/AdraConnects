@@ -56,13 +56,18 @@ export default function EventCard({ event, onRsvp, past = false }) {
           <button
             key={o.id}
             className={`rsvp-btn${mine === o.id ? ' selected' : ''}`}
-            disabled={past}
+            disabled={past || mine !== null}
             onClick={() => onRsvp(event.id, o.id)}
           >
             {o.label} · {count(o.id)}
           </button>
         ))}
       </div>
+      {mine !== null && !past && (
+        <div className="rsvp-locked">
+          <Icon name="lock" size={11} /> Your RSVP is final and cannot be changed
+        </div>
+      )}
     </div>
   )
 }

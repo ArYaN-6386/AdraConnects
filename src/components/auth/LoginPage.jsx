@@ -4,21 +4,17 @@ import { useAuth } from '../../context/AuthContext.jsx'
 import Icon from '../common/Icon.jsx'
 
 export default function LoginPage() {
-  const { signIn } = useAuth()
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
+  const { signInWithGoogle } = useAuth()
   const [error, setError] = useState('')
   const [busy, setBusy] = useState(false)
 
-  async function handleSubmit(e) {
-    e.preventDefault()
+  async function handleGoogle() {
     setError('')
     setBusy(true)
     try {
-      await signIn(email.trim(), password)
+      await signInWithGoogle('/')
     } catch (err) {
-      setError(err.message ?? 'Login failed')
-    } finally {
+      setError(err.message ?? 'Sign in failed')
       setBusy(false)
     }
   }
@@ -33,29 +29,19 @@ export default function LoginPage() {
           AdraConnects
         </div>
         <p className="auth-tagline">Agile Development · Robust Automations</p>
-        <form onSubmit={handleSubmit}>
-          <input
-            type="email"
-            placeholder="College email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-            autoFocus
-          />
-          <input
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-          {error && <div className="auth-error">{error}</div>}
-          <button type="submit" className="btn-primary" disabled={busy}>
-            {busy ? 'Logging in…' : 'Log in'}
-          </button>
-        </form>
+
+        <button className="btn-google" onClick={handleGoogle} disabled={busy}>
+          <Icon name="google" size={18} />
+          {busy ? 'Redirecting to Google…' : 'Continue with Google'}
+        </button>
+        {error && <div className="auth-error auth-error-center">{error}</div>}
+
+        <p className="auth-note">
+          Sign in with your college Google account. New accounts are created automatically on first
+          sign-in.
+        </p>
         <p className="auth-switch">
-          New here? <Link to="/signup">Create an account</Link>
+          Teacher or HOD? <Link to="/faculty">Faculty gateway</Link>
         </p>
       </div>
     </div>

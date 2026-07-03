@@ -3,7 +3,7 @@ import { useAuth } from './context/AuthContext.jsx'
 import { ChatProvider } from './context/ChatContext.jsx'
 import { PresenceProvider } from './context/PresenceContext.jsx'
 import LoginPage from './components/auth/LoginPage.jsx'
-import SignupPage from './components/auth/SignupPage.jsx'
+import FacultyGateway from './components/auth/FacultyGateway.jsx'
 import AppLayout from './components/layout/AppLayout.jsx'
 import AdminPage from './components/admin/AdminPage.jsx'
 
@@ -27,11 +27,23 @@ function EmployeeOnly({ children }) {
 }
 
 export default function App() {
-  const { session } = useAuth()
+  const { session, loading } = useAuth()
   return (
     <Routes>
       <Route path="/login" element={session ? <Navigate to="/" replace /> : <LoginPage />} />
-      <Route path="/signup" element={session ? <Navigate to="/" replace /> : <SignupPage />} />
+      <Route path="/signup" element={<Navigate to="/login" replace />} />
+      <Route
+        path="/faculty"
+        element={
+          loading ? (
+            <div className="full-center">
+              <div className="spinner" />
+            </div>
+          ) : (
+            <FacultyGateway />
+          )
+        }
+      />
       <Route
         path="/"
         element={

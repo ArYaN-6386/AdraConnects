@@ -35,12 +35,19 @@ export function useEvents(clubId) {
     [clubId, user, refresh]
   )
 
+  // RSVPs are permanent: one insert per member per event, no updates (DB-enforced)
   const rsvp = useCallback(
     async (eventId, status) => {
-      await supabase.from('event_rsvps').upsert(
-        { event_id: eventId, user_id: user.id, status, updated_at: new Date().toISOString() },
-        { onConflict: 'event_id,user_id' }
-      )
+      const { error } = await supabase
+        .from('event_rsvps')
+        .insert({ event_id: eventId, user_id: user.id, status })
+      if (error) {
+        alert(
+          error.code === '23505'
+            ? 'Your RSVP is already recorded — RSVPs are final and cannot be changed.'
+            : error.message
+        )
+      }
       await refresh()
     },
     [user, refresh]

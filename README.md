@@ -12,14 +12,14 @@
 
 ## Features
 
-- **Auth** — sign up / log in with email + password; profile with colored-initials avatar (auto-created by DB trigger)
+- **Auth** — **Google sign-in only** (email/password is disabled in Supabase Auth). Accounts and profiles are auto-created on first Google sign-in by a DB trigger; colored-initials avatar
 - **Clubs** — create a club (you become admin), browse & join clubs, member list with roles, remove members (admin), leave club
 - **Group chat** — realtime messaging per club with sender names and date separators
 - **Direct messages** — 1:1 chats with online status, typing indicator, and WhatsApp-style ✓✓ read receipts that turn blue live
 - **Announcements** — every club gets a 📢 channel; only admins can post (enforced by Row Level Security in the database, not just the UI)
-- **Events** — admins schedule events (title, date/time, location, details); members RSVP Going/Maybe/Can't with live counts; upcoming & past sections
+- **Events** — admins schedule events (title, date/time, location, details); members RSVP Going/Maybe/Can't with live counts; upcoming & past sections. **RSVPs are permanent**: one response per member, locked at the database level (no updates or deletes) — a real commitment, not a poll
 - **Attendance** — every event shows who will be present (RSVP names); faculty (or the club admin) mark actual attendance per member, and everyone sees the "X of Y present" summary
-- **Faculty & admin panel** — teachers/HODs are stored in an `employees` table (sign up as Faculty with a staff access code, or get promoted by an HOD). Employees get a shield button opening `/admin`: overview stats, all students with club memberships (removable), all clubs with member management, all events with attendance marking, and faculty management (HOD-only: promote/demote/remove). Private chats and DMs stay invisible to the admin panel by design.
+- **Faculty & admin panel** — teachers/HODs are stored in an `employees` table. New teachers register through the **Faculty Gateway** (`/faculty`): sign in with Google, then enter a staff access code — or get promoted by an HOD. Employees get a shield button opening `/admin`: overview stats, all students with club memberships (removable), all clubs with member management, all events with attendance marking, and faculty management (HOD-only: promote/demote/remove). Private chats and DMs stay invisible to the admin panel by design.
 - **Resources** — attach 📎 images/files in any chat (stored in Supabase Storage); images render inline; every club has a Resources tab listing all shared files
 - **Unread badges** — per-chat unread counts computed server-side in one RPC call
 
@@ -30,11 +30,17 @@ npm install
 npm run dev
 ```
 
-Open http://localhost:5173. To test realtime with two users, open a second window in incognito and sign up a second account.
+Open http://localhost:5173. To test realtime with two users, open a second window in incognito and sign in with a different Google account.
 
-Test accounts already seeded: `alice@test.com`, `bob@test.com`, `carol@test.com`, and faculty `teacher@test.com` (password `test1234`).
+**Google OAuth setup (required — email sign-in is disabled):**
 
-**Staff access codes** (for Faculty signup; defined in `register_employee` in the DB — change them before real use): `FACULTY-2026` registers a teacher, `HOD-2026` registers an HOD. HODs can also promote existing users from the admin panel's Faculty tab.
+1. In [Google Cloud Console](https://console.cloud.google.com/apis/credentials) create an OAuth 2.0 Client ID (type: Web application) with authorized redirect URI `https://zgwckrpeveoemmwtriee.supabase.co/auth/v1/callback`
+2. In the [Supabase dashboard](https://supabase.com/dashboard/project/zgwckrpeveoemmwtriee/auth/providers): Authentication → Sign In / Providers → Google → enable and paste the Client ID + Secret
+3. Authentication → URL Configuration → set Site URL to `http://localhost:5173` (add your deployed URL later)
+
+Legacy email test accounts (alice/bob/carol/teacher@test.com) can no longer sign in; their data is still visible in the app and admin panel.
+
+**Staff access codes** (for the Faculty Gateway at `/faculty`; defined in `register_employee` in the DB — change them before real use): `FACULTY-2026` registers a teacher, `HOD-2026` registers an HOD. HODs can also promote existing users from the admin panel's Faculty tab.
 
 ## Architecture notes
 

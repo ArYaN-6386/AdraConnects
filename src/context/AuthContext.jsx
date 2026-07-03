@@ -47,23 +47,12 @@ export function AuthProvider({ children }) {
     refreshEmployee(uid)
   }, [session?.user?.id])
 
-  async function signUp(fullName, email, password) {
-    const { data, error } = await supabase.auth.signUp({
-      email,
-      password,
-      options: { data: { full_name: fullName } },
+  // Google is the only sign-in method (email/password is disabled in Supabase Auth)
+  async function signInWithGoogle(returnTo = '/') {
+    const { error } = await supabase.auth.signInWithOAuth({
+      provider: 'google',
+      options: { redirectTo: `${window.location.origin}${returnTo}` },
     })
-    if (error) throw error
-    // Emails are auto-confirmed by a DB trigger; if signUp didn't return a
-    // session (confirmation flow enabled), log straight in.
-    if (!data.session) {
-      const { error: signInError } = await supabase.auth.signInWithPassword({ email, password })
-      if (signInError) throw signInError
-    }
-  }
-
-  async function signIn(email, password) {
-    const { error } = await supabase.auth.signInWithPassword({ email, password })
     if (error) throw error
   }
 
@@ -80,8 +69,7 @@ export function AuthProvider({ children }) {
     isHod: employee?.role === 'hod',
     refreshEmployee: () => refreshEmployee(session?.user?.id),
     loading,
-    signUp,
-    signIn,
+    signInWithGoogle,
     signOut,
   }
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
