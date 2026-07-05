@@ -9,7 +9,7 @@ import MessageList from './MessageList.jsx'
 import MessageInput from './MessageInput.jsx'
 
 export default function ChatWindow({ openPanel }) {
-  const { activeChat, chats, openConversation } = useChat()
+  const { activeChat, chats, openConversation, closeConversation } = useChat()
   const { onlineIds } = usePresence()
 
   const conversationId = activeChat.conversation_id
@@ -51,6 +51,9 @@ export default function ChatWindow({ openPanel }) {
   return (
     <div className="chat-window">
       <div className="chat-header">
+        <button className="icon-btn mobile-back" title="Back to chats" onClick={closeConversation}>
+          <Icon name="back" />
+        </button>
         <Avatar
           name={activeChat.title}
           size={40}

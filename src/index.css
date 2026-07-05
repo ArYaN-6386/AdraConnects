@@ -1372,3 +1372,123 @@ textarea:focus {
 ::-webkit-scrollbar-track {
   background: transparent;
 }
+
+/* ===== Mobile (single-pane, WhatsApp-style) ===== */
+.mobile-back {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  /* home screen = chat list; opening a chat swaps to a full-screen conversation */
+  .sidebar {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .main-pane {
+    display: none;
+  }
+
+  .app.chat-open .sidebar {
+    display: none;
+  }
+
+  .app.chat-open .main-pane {
+    display: flex;
+  }
+
+  .mobile-back {
+    display: inline-flex;
+    color: var(--ink-soft);
+    margin-right: -4px;
+  }
+
+  .chat-header {
+    padding: 8px 10px;
+    padding-top: calc(8px + env(safe-area-inset-top));
+  }
+
+  .sidebar-brand {
+    padding-top: calc(14px + env(safe-area-inset-top));
+  }
+
+  .message-list {
+    padding: 14px 4%;
+  }
+
+  .bubble {
+    max-width: 85%;
+  }
+
+  .msg-image {
+    max-width: 100%;
+  }
+
+  .message-input {
+    padding-bottom: calc(10px + env(safe-area-inset-bottom));
+  }
+
+  /* prevent iOS zoom-on-focus (requires >=16px inputs) */
+  input,
+  textarea,
+  select {
+    font-size: 16px;
+  }
+
+  /* club info panel becomes a full-screen overlay */
+  .club-panel {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    min-width: 0;
+    z-index: 40;
+    border-left: none;
+  }
+
+  .club-panel-header {
+    padding-top: calc(13px + env(safe-area-inset-top));
+  }
+
+  /* admin panel */
+  .admin-header {
+    padding-top: calc(12px + env(safe-area-inset-top));
+    flex-wrap: wrap;
+  }
+
+  .admin-me {
+    width: 100%;
+    order: 10;
+  }
+
+  .admin-tabs {
+    overflow-x: auto;
+  }
+
+  .admin-tabs .club-tab {
+    padding: 12px 14px;
+    white-space: nowrap;
+  }
+
+  .admin-body {
+    padding: 12px;
+  }
+
+  .faculty-add {
+    flex-direction: column;
+  }
+
+  .faculty-add input,
+  .faculty-add select {
+    width: 100%;
+  }
+
+  /* modals fill more of the screen */
+  .modal-card {
+    max-height: 92vh;
+    width: calc(100vw - 20px);
+  }
+
+  .auth-card {
+    padding: 28px 22px;
+  }
+}

@@ -11,7 +11,7 @@ export default function AppLayout() {
   const [panel, setPanel] = useState(null)
 
   return (
-    <div className="app">
+    <div className={`app${activeChat ? ' chat-open' : ''}`}>
       <Sidebar />
       <div className="main-pane">
         {activeChat ? (
